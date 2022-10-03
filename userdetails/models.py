@@ -1,7 +1,8 @@
-from email.mime import audio
-from django.db import models
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+
 
 
 class DatedModel(models.Model):
@@ -47,4 +48,5 @@ class content(DatedModel,CreatedModel):
       audio = models.FileField(upload_to="audio/" ,max_length=250,null=True)     
       text_content = models.TextField(null=True)
       title = models.CharField(max_length=255,null=True)
-      speciality = models.CharField(max_length=255,null=True)
+      speciality = ArrayField(models.CharField(max_length=250),default=list, null=True)
+      video_link = models.CharField(max_length=255,null=True)

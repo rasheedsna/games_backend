@@ -27,6 +27,15 @@ class UserLoginSerializer(serializers.Serializer):
         response_data['access_token'] = str(refresh.access_token)
         response_data['refresh_token'] = str(refresh)
         response_data['id'] = instance.id
+        response_data['username'] = instance.username
+        response_data['first_name'] = instance.first_name
+        response_data['last_name'] = instance.last_name
+        response_data['email'] = instance.email
+        try:
+            user_details = UserDetails.objects.get(id=instance.id)
+            response_data['phone_number'] = user_details.phone_number
+        except:
+            pass 
         return response_data
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -49,10 +58,10 @@ class LanguageSerializer(serializers.ModelSerializer):
         extra_kwargs = {'id': {"read_only": True}}
 
 class ContentSerializer(serializers.ModelSerializer):
-   
+    language_name = serializers.CharField(source='language.name', read_only=True)
     class Meta:
         model = content
-        fields = '__all__'
+        fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link']
         extra_kwargs = {'id': {"read_only": True}}
 
         def create(self, validated_data):
