@@ -97,7 +97,7 @@ class UserRegistrationViewSet(viewsets.ModelViewSet):
     """
     serializer_class = RegistrationSerializer
     queryset = UserDetails.objects.all()
-    http_method_names = ['post','get']        
+    http_method_names = ['get', 'put','post','delete']        
 
 class languageViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
