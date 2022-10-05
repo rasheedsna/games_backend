@@ -1,3 +1,4 @@
+from sys import settrace
 from django.shortcuts import render
 from django.shortcuts import render
 from django.conf import settings
@@ -125,10 +126,17 @@ class get_content_by_language(APIView):
             )],
     )
     def get(self,request):
+
         try:
+            hostname = f"{ request.scheme }://{ request.get_host() }"
+            # import pdb;pdb.set_trace()
             lang_id = request.GET.get('language_id') 
-            appts = content.objects.filter(language_id=lang_id)
-            serializer = ContentSerializer(appts, many=True)
-            return Response(serializer.data)
+            appts = content.objects.filter(language_id=lang_id).values()
+            for item in appts:
+                
+                item['video']=hostname+settings.MEDIA_URL+item['video']
+                item['audio']=hostname+settings.MEDIA_URL+item['audio']
+               
+            return Response({'results':appts})
         except Exception as e:
             return Response({'results':"Failed to get content"})

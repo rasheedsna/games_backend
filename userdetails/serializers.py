@@ -41,7 +41,7 @@ class UserLoginSerializer(serializers.Serializer):
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserDetails
-        fields = ['first_name', 'last_name', 'email', 'username', 'password', 'phone_number']
+        fields = ['id','first_name', 'last_name', 'email', 'username', 'password', 'phone_number']
         extra_kwargs = {'first_name': {'required': True}, 'last_name': {'required': True}, 
             'password': {'write_only': True},
         }
@@ -62,7 +62,7 @@ class ContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = content
         fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link']
-        extra_kwargs = {'id': {"read_only": True}}
+        extra_kwargs = {'id': {"read_only": True},'speciality':{"required":False}}
 
         def create(self, validated_data):
             content = content.objects.create_user(**validated_data)
