@@ -129,7 +129,6 @@ class get_content_by_language(APIView):
 
         try:
             hostname = f"{ request.scheme }://{ request.get_host() }"
-            # import pdb;pdb.set_trace()
             lang_id = request.GET.get('language_id') 
             appts = content.objects.filter(language_id=lang_id).values()
             for item in appts:

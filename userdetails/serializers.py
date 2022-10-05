@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import UserDetails, content, language
+import json
 
 
 
@@ -67,3 +68,10 @@ class ContentSerializer(serializers.ModelSerializer):
         def create(self, validated_data):
             content = content.objects.create_user(**validated_data)
             return content
+
+        def to_representation(self, instance):
+            rep = super().to_representation(instance)
+            if rep['speciality']:
+                rep['speciality'] = json.loads(rep['speciality'])
+            
+            return rep

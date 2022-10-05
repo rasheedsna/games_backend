@@ -48,5 +48,5 @@ class content(DatedModel,CreatedModel):
       audio = models.FileField(upload_to="audio/" ,max_length=250,null=True)     
       text_content = models.TextField(null=True)
       title = models.CharField(max_length=255,null=True)
-      speciality = ArrayField(models.CharField(max_length=250),default=list, null=True)
+      speciality = models.JSONField(blank=True, null=True)
       video_link = models.CharField(max_length=255,null=True)
