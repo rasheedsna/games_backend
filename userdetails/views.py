@@ -133,9 +133,9 @@ class get_content_by_language(APIView):
             appts = content.objects.filter(language_id=lang_id).values()
             for item in appts:
                 
-                item['video']=hostname+settings.MEDIA_URL+item['video']
-                item['audio']=hostname+settings.MEDIA_URL+item['audio']
-                item['short_video'] = hostname+settings.MEDIA_URL+item['short_video']
+                item['video']=hostname+settings.MEDIA_URL+item['video'] if item['video'] else ''
+                item['audio']=hostname+settings.MEDIA_URL+item['audio'] if item['audio'] else ''
+                item['short_video'] = hostname+settings.MEDIA_URL+item['short_video'] if item['short_video'] else ''
                
             return Response({'results':appts})
         except Exception as e:
