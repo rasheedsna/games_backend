@@ -135,6 +135,7 @@ class get_content_by_language(APIView):
                 
                 item['video']=hostname+settings.MEDIA_URL+item['video']
                 item['audio']=hostname+settings.MEDIA_URL+item['audio']
+                item['short_video'] = hostname+settings.MEDIA_URL+item['short_video']
                
             return Response({'results':appts})
         except Exception as e:

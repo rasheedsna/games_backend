@@ -50,3 +50,6 @@ class content(DatedModel,CreatedModel):
       title = models.CharField(max_length=255,null=True)
       speciality = models.JSONField(blank=True, null=True)
       video_link = models.CharField(max_length=255,null=True)
+      short_video = models.FileField(upload_to="short_video/",max_length=255,null=True)
+      short_video_link = models.CharField(max_length=255,null=True)
+      html_content = models.TextField(null=True)
