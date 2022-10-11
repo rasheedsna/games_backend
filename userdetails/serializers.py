@@ -60,9 +60,16 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 class ContentSerializer(serializers.ModelSerializer):
     language_name = serializers.CharField(source='language.name', read_only=True)
+    native_name = serializers.CharField(source='language.native_name', read_only=True)
+    video_name = serializers.CharField(source='language.video_name', read_only=True)
+    audio_name = serializers.CharField(source='language.audio_name', read_only=True)
+    text_name = serializers.CharField(source='language.text_name', read_only=True)
+   
+
+
     class Meta:
         model = content
-        fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link','short_video','short_video_link','html_content']
+        fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link','short_video','short_video_link','html_content','meeting_link','native_name','video_name','audio_name','text_name']
         extra_kwargs = {'id': {"read_only": True},'speciality':{"required":False}}
 
         def create(self, validated_data):

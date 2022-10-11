@@ -39,7 +39,11 @@ class language(DatedModel,CreatedModel):
  
       is_active = models.BooleanField(null=True)
       name = models.CharField(max_length=255,null=True)
-      code = models.CharField(max_length=255,null=True)      
+      code = models.CharField(max_length=255,null=True) 
+      native_name= models.CharField(max_length=255,null=True) 
+      video_name=  models.CharField(max_length=255,null=True) 
+      audio_name= models.CharField(max_length=255,null=True) 
+      text_name= models.CharField(max_length=255,null=True)    
 
 class content(DatedModel,CreatedModel):
 
@@ -53,3 +57,4 @@ class content(DatedModel,CreatedModel):
       short_video = models.FileField(upload_to="short_video/",max_length=255,null=True)
       short_video_link = models.CharField(max_length=255,null=True)
       html_content = models.TextField(null=True)
+      meeting_link = models.CharField(max_length=255,null=True)
