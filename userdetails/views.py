@@ -130,13 +130,26 @@ class get_content_by_language(APIView):
         try:
             hostname = f"{ request.scheme }://{ request.get_host() }"
             lang_id = request.GET.get('language_id') 
-            appts = content.objects.filter(language_id=lang_id).values()
+            appts = content.objects.filter(language_id=lang_id).values('id','language','language__name','video','audio','text_content','title',
+                                                                    'speciality','video_link','short_video','short_video_link','html_content',
+                                                                    'meeting_link','language__native_name','language__video_name','language__audio_name','language__text_name')
             for item in appts:
                 
                 item['video']=hostname+settings.MEDIA_URL+item['video'] if item['video'] else ''
                 item['audio']=hostname+settings.MEDIA_URL+item['audio'] if item['audio'] else ''
                 item['short_video'] = hostname+settings.MEDIA_URL+item['short_video'] if item['short_video'] else ''
-               
+                item['language_name'] = item['language__name']
+                item['native_name'] = item['language__native_name']
+                item['video_name'] = item['language__video_name']
+                item['audio_name'] = item['language__audio_name']
+                item['text_name'] = item['language__text_name']
+
+                del item['language__name']
+                del item['language__native_name']
+                del item['language__video_name']
+                del item['language__audio_name']
+                del item['language__text_name']
+
             return Response({'results':appts})
         except Exception as e:
             return Response({'results':"Failed to get content"})
