@@ -43,7 +43,8 @@ class language(DatedModel,CreatedModel):
       native_name= models.CharField(max_length=255,null=True) 
       video_name=  models.CharField(max_length=255,null=True) 
       audio_name= models.CharField(max_length=255,null=True) 
-      text_name= models.CharField(max_length=255,null=True)    
+      text_name= models.CharField(max_length=255,null=True)
+      home_native = models.CharField(max_length=255,null=True)
 
 class content(DatedModel,CreatedModel):
 
