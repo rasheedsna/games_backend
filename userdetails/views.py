@@ -132,7 +132,8 @@ class get_content_by_language(APIView):
             lang_id = request.GET.get('language_id') 
             appts = content.objects.filter(language_id=lang_id).values('id','language','language__name','video','audio','text_content','title',
                                                                     'speciality','video_link','short_video','short_video_link','html_content',
-                                                                    'meeting_link','language__native_name','language__video_name','language__audio_name','language__text_name')
+                                                                    'meeting_link','language__native_name','language__video_name','language__audio_name',
+                                                                    'language__text_name','language__home_native')
             for item in appts:
                 
                 item['video']=hostname+settings.MEDIA_URL+item['video'] if item['video'] else ''
@@ -143,12 +144,14 @@ class get_content_by_language(APIView):
                 item['video_name'] = item['language__video_name']
                 item['audio_name'] = item['language__audio_name']
                 item['text_name'] = item['language__text_name']
+                item['home_native'] = item['language__home_native']
 
                 del item['language__name']
                 del item['language__native_name']
                 del item['language__video_name']
                 del item['language__audio_name']
                 del item['language__text_name']
+                del item['language__home_native']
 
             return Response({'results':appts})
         except Exception as e:
