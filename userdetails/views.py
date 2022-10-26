@@ -95,11 +95,13 @@ class UserRegistrationViewSet(viewsets.ModelViewSet):
     """
     A viewset for register and edit user instances.
     """
+    pagination_class = None
     serializer_class = RegistrationSerializer
     queryset = UserDetails.objects.all()
     http_method_names = ['get', 'put','post','delete']        
 
 class languageViewSet(viewsets.ModelViewSet):
+    pagination_class = None
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [AllowAny]
     serializer_class = LanguageSerializer
@@ -107,6 +109,7 @@ class languageViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'put','post','delete'] 
 
 class contentViewSet(viewsets.ModelViewSet):
+    pagination_class = None
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [AllowAny]
     serializer_class = ContentSerializer
