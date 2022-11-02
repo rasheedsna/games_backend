@@ -1,3 +1,4 @@
+from pickle import TRUE
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
@@ -44,7 +45,9 @@ class language(DatedModel,CreatedModel):
       video_name=  models.CharField(max_length=255,null=True) 
       audio_name= models.CharField(max_length=255,null=True) 
       text_name= models.CharField(max_length=255,null=True)
-      home_native = models.CharField(max_length=255,null=True)
+      meeting_name =  models.CharField(max_length=255,null=True)
+      reviews_name =  models.CharField(max_length=255,null=True)
+      home_name = models.CharField(max_length=255,null=True)
 
 class content(DatedModel,CreatedModel):
 
@@ -59,3 +62,7 @@ class content(DatedModel,CreatedModel):
       short_video_link = models.CharField(max_length=255,null=True)
       html_content = models.TextField(null=True)
       meeting_link = models.CharField(max_length=255,null=True)
+      video_thumbnail_mobile  = models.ImageField(upload_to='content/video/mobile',null =True)
+      video_thumbnail_desktop = models.ImageField(upload_to='content/video/desktop',null =True)
+      short_video_thumbnail_mobile = models.ImageField(upload_to='content/short_video/mobile',null =True)
+      short_video_thumbnail_desktop = models.ImageField(upload_to='content/short_video/desktop',null =True)

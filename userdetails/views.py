@@ -139,19 +139,26 @@ class get_content_by_language(APIView):
                 item['video']=hostname+settings.MEDIA_URL+item['video'] if item['video'] else ''
                 item['audio']=hostname+settings.MEDIA_URL+item['audio'] if item['audio'] else ''
                 item['short_video'] = hostname+settings.MEDIA_URL+item['short_video'] if item['short_video'] else ''
+                item['short_video_thumbnail_desktop'] = hostname+settings.MEDIA_URL+item['short_video_thumbnail_desktop'] if item['short_video_thumbnail_desktop'] else ''
+                item['short_video_thumbnail_mobile'] = hostname+settings.MEDIA_URL+item['short_video_thumbnail_mobile'] if item['short_video_thumbnail_mobile'] else ''
+                item['video_thumbnail_mobile'] = hostname+settings.MEDIA_URL+item['video_thumbnail_mobile'] if item['video_thumbnail_mobile'] else ''
+                item['video_thumbnail_desktop'] = hostname+settings.MEDIA_URL+item['video_thumbnail_desktop'] if item['video_thumbnail_desktop'] else ''
                 item['language_name'] = item['language__name']
                 item['native_name'] = item['language__native_name']
                 item['video_name'] = item['language__video_name']
                 item['audio_name'] = item['language__audio_name']
                 item['text_name'] = item['language__text_name']
-                item['home_native'] = item['language__home_native']
-
+                item['home_name'] = item['language__home_name']
+                item['meeting_name']=item['language__meeting_name']
+                item['reviews_name'] = item['language__reviews_name']
+                
+           
                 del item['language__name']
                 del item['language__native_name']
                 del item['language__video_name']
                 del item['language__audio_name']
                 del item['language__text_name']
-                del item['language__home_native']
+                del item['language__home_name']
 
             return Response({'results':appts})
         except Exception as e:
