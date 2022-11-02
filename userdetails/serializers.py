@@ -69,7 +69,7 @@ class ContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = content
-        fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link','short_video','short_video_link','html_content','meeting_link','native_name','video_name','audio_name','text_name','video_thumbnail_mobile','video_thumbnail_desktop','short_video_thumbnail_mobile','short_video_thumbnail_desktop']
+        fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link','short_video','short_video_link','html_content','more_info','meeting_link','native_name','video_name','audio_name','text_name','video_thumbnail_mobile','video_thumbnail_desktop','short_video_thumbnail_mobile','short_video_thumbnail_desktop']
         extra_kwargs = {'id': {"read_only": True},'speciality':{"required":False}}
 
         def create(self, validated_data):

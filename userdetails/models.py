@@ -55,6 +55,7 @@ class content(DatedModel,CreatedModel):
       video = models.FileField(upload_to="video/",max_length=255,null=True)
       audio = models.FileField(upload_to="audio/" ,max_length=250,null=True)     
       text_content = models.TextField(null=True)
+      more_info = models.TextField(null=True)
       title = models.CharField(max_length=255,null=True)
       speciality = models.JSONField(blank=True, null=True)
       video_link = models.CharField(max_length=255,null=True)
