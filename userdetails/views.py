@@ -126,14 +126,16 @@ class get_content_by_language(APIView):
             )],
     )
     def get(self,request):
-
+   
         try:
             hostname = f"{ request.scheme }://{ request.get_host() }"
             lang_id = request.GET.get('language_id') 
             appts = content.objects.filter(language_id=lang_id).values('id','language','language__name','video','audio','text_content','title',
                                                                     'speciality','video_link','short_video','short_video_link','html_content',
                                                                     'meeting_link','language__native_name','language__video_name','language__audio_name',
-                                                                    'language__text_name','language__home_native')
+                                                                    'language__text_name','language__home_name','language__meeting_name','language__reviews_name','short_video_thumbnail_desktop','short_video_thumbnail_mobile','video_thumbnail_mobile','video_thumbnail_desktop')
+            
+            
             for item in appts:
                 
                 item['video']=hostname+settings.MEDIA_URL+item['video'] if item['video'] else ''
