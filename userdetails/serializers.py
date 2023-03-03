@@ -76,13 +76,13 @@ class ContentSerializer(serializers.ModelSerializer):
             content = content.objects.create_user(**validated_data)
             return content
 
-        def to_representation(self, instance):
+    def to_representation(self, instance):
             rep = super().to_representation(instance)
         
             appts = content.objects.filter(id=rep['id']).values('id','language','language__name','video','audio','text_content','title',
                                                                     'speciality','video_link','short_video','short_video_link','html_content','more_info',
                                                                     'meeting_link','language__native_name','language__video_name','language__audio_name',
-                                                                    'language__text_name','language__home_name','language__meeting_name','language__reviews_name','short_video_thumbnail_desktop','short_video_thumbnail_mobile','video_thumbnail_mobile','video_thumbnail_desktop')
+                                                                    'language__text_name','language__home_name','language__meeting_name','language__reviews_name','short_video_thumbnail_desktop','short_video_thumbnail_mobile','video_thumbnail_mobile','video_thumbnail_desktop').first()
             
             
                 
