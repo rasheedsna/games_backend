@@ -69,7 +69,7 @@ class ContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = content
-        fields = ['id','language','language_name','video','audio','text_content','title','speciality','video_link','short_video','short_video_link','html_content','more_info','meeting_link','native_name','video_name','audio_name','text_name','video_thumbnail_mobile','video_thumbnail_desktop','short_video_thumbnail_mobile','short_video_thumbnail_desktop']
+        fields = ['id','language','language_name','text_content','title','video_link','short_video_link','html_content','more_info','meeting_link','native_name','video_name','audio_name','text_name']
         extra_kwargs = {'id': {"read_only": True},'speciality':{"required":False}}
 
         def create(self, validated_data):
@@ -78,22 +78,21 @@ class ContentSerializer(serializers.ModelSerializer):
 
         def to_representation(self, instance):
             rep = super().to_representation(instance)
-            if rep['speciality']:
-                rep['speciality'] = json.loads(rep['speciality'])
-                appts = content.objects.filter(id=rep['id']).values('id','language','language__name','video','audio','text_content','title',
+        
+            appts = content.objects.filter(id=rep['id']).values('id','language','language__name','video','audio','text_content','title',
                                                                     'speciality','video_link','short_video','short_video_link','html_content','more_info',
                                                                     'meeting_link','language__native_name','language__video_name','language__audio_name',
                                                                     'language__text_name','language__home_name','language__meeting_name','language__reviews_name','short_video_thumbnail_desktop','short_video_thumbnail_mobile','video_thumbnail_mobile','video_thumbnail_desktop')
             
             
                 
-                rep['video']=settings.HOST_ADDRESS+settings.MEDIA_URL+appts['video'] if appts['video'] else ''
-                rep['audio']=settings.HOST_ADDRESS+settings.MEDIA_URL+appts['audio'] if appts['audio'] else ''
-                rep['short_video'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['short_video'] if appts['short_video'] else ''
-                rep['short_video_thumbnail_desktop'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['short_video_thumbnail_desktop'] if appts['short_video_thumbnail_desktop'] else ''
-                rep['short_video_thumbnail_mobile'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['short_video_thumbnail_mobile'] if appts['short_video_thumbnail_mobile'] else ''
-                rep['video_thumbnail_mobile'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['video_thumbnail_mobile'] if rep['video_thumbnail_mobile'] else ''
-                rep['video_thumbnail_desktop'] = settings.HOST_ADDRESS.HOST_ADDRESS+settings.MEDIA_URL+appts['video_thumbnail_desktop'] if appts['video_thumbnail_desktop'] else ''
-            
+            rep['video']=settings.HOST_ADDRESS+settings.MEDIA_URL+appts['video'] if appts['video'] else ''
+            rep['audio']=settings.HOST_ADDRESS+settings.MEDIA_URL+appts['audio'] if appts['audio'] else ''
+            rep['short_video'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['short_video'] if appts['short_video'] else ''
+            rep['short_video_thumbnail_desktop'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['short_video_thumbnail_desktop'] if appts['short_video_thumbnail_desktop'] else ''
+            rep['short_video_thumbnail_mobile'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['short_video_thumbnail_mobile'] if appts['short_video_thumbnail_mobile'] else ''
+            rep['video_thumbnail_mobile'] = settings.HOST_ADDRESS+settings.MEDIA_URL+appts['video_thumbnail_mobile'] if rep['video_thumbnail_mobile'] else ''
+            rep['video_thumbnail_desktop'] = settings.HOST_ADDRESS.HOST_ADDRESS+settings.MEDIA_URL+appts['video_thumbnail_desktop'] if appts['video_thumbnail_desktop'] else ''
+        
             
             return rep
